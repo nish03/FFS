@@ -8,14 +8,14 @@ This repository provides the source code for the CVPR 2023 highlight [paper](htt
 * [Installation](#Installation)
   * [Package Requirements](#package-requirements)
   * [Datasets](#Datasets)
-* [FFS on Images](#FFS-on-Images)
-  * [(Images) Pre-trained models](#(Images)-Pre-trained-models)
-  * [(Images) Training](#(Images)-Training)
-  * [(Images) Inference](#(Images)-Inference)
-* [FFS on Video](#FFS-on-Video) 
-  * [(Video) Pre-trained models](#(Video)-Pre-trained-models)
-  * [(Video) Training](#(Video)-Training)
-  * [(Video) Inference](#(Video)-Inference)
+* [FFS on Images](#ffs-on-images)
+  * [(Images) Pre-trained models](#images-pre-trained-models)
+  * [(Images) Training](#(images-training)
+  * [(Images) Inference](#images-inference)
+* [FFS on Video](#ffs-on-video) 
+  * [(Video) Pre-trained models](#video-pre-trained-models)
+  * [(Video) Training](#video-training)
+  * [(Video) Inference](#video-inference)
 
 ## Installation
 
