@@ -8,4 +8,28 @@ This repository provides the source code for the CVPR 2023 highlight [paper](htt
 * Installation
   * Package Requirements
   * Datasets
-* 
+* FFS on Images
+  * Pre-trained models
+  * Training
+  * Evaluation
+* FFS on Video 
+  * Pre-trained models
+  * Training
+  * Evaluation
+
+## Installation
+
+### Package Requirements
+### Datasets
+
+## FFS on Images
+
+### Pre-trained models
+### Training
+### Evaluation
+
+## FFS on Video
+
+### Pre-trained models
+### Training
+### Evaluation
