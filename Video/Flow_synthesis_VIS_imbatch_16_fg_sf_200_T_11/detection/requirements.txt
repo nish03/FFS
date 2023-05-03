@@ -1,0 +1,9 @@
+pyyaml==5.1
+wand
+scikit-image
+sklearn
+opencv-python
+# Torch
+--find-links https://download.pytorch.org/whl/cu101/torch_stable.html
+torch==1.7.1
+torchvision==0.8.2
