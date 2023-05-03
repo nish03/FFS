@@ -1,0 +1,39 @@
+_BASE_: "/home/h1/s8993054/Flow_synthesis_VIS_imbatch_16_fg_sf_200_T_11/detection/configs/Base-RCNN-FPN.yaml"
+MODEL:
+  PIXEL_STD: [ 57.375, 57.120, 58.395 ]
+  BACKBONE:
+    NAME: "build_regnetx_fpn_backbone"
+  WEIGHTS: "/home/h1/s8993054/Flow_synthesis_VIS_imbatch_16_fg_sf_200_T_11/detection/configs/regnetx_detectron2.pth" #"regnetx_detectron2.pth"
+  META_ARCHITECTURE: "GeneralizedRCNNLogisticGMM"
+  MASK_ON: False
+  RESNETS:
+    DEPTH: 50
+  ROI_HEADS:
+    NAME: "ROIHeadsLogisticGMMNew"
+    NUM_CLASSES: 40
+  FPN:
+    IN_FEATURES: [ "s1", "s2", "s3", "s4" ]
+INPUT:
+  MIN_SIZE_TRAIN: 800
+  MIN_SIZE_TEST: 800
+DATASETS:
+  TRAIN: ("vis21_train",)
+  TEST: ("vis21_val", )
+VOS:
+  STARTING_ITER: 30000
+  SAMPLE_NUMBER: 300
+  BATCH_SIZE: 75
+  SAMPLE_FROM: 200
+SOLVER:
+  IMS_PER_BATCH: 16
+  BASE_LR: 0.02
+  WEIGHT_DECAY: 5e-5
+  STEPS: (36000, 48000,)
+  MAX_ITER: 52500
+  WARMUP_ITERS: 5000
+SEED: 1998
+DATALOADER:
+  SAMPLER_TRAIN: "PairTrainingMultiRandomSampler"
+  SELCTED_NUMBER: 3
+  PAIR_OFFSET_RANGE: 9
+OUTPUT_DIR: "/nobackup-slow/dataset/video/vis/checkpoints/VIS/energy_no_original_loss_direct_add_0_02_frame_9_revise_4to6_multi_random_seed_regnet_longer"
