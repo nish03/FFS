@@ -20,7 +20,13 @@ This repository provides the source code for the CVPR 2023 highlight [paper](htt
 ## Installation
 
 ### Package Requirements
+```
+pip install -r requirements.txt
+```
+Please note that the package versions in the requirements text file is  Additionally, you need to install [Detectron2](https://detectron2.readthedocs.io/en/latest/tutorials/install.html) and [FrEIA](https://github.com/vislearn/FrEIA).
+
 ### Datasets
+We use the procedure as stated by [VOS](https://github.com/deeplearning-wisc/vos) and [STUD](https://github.com/deeplearning-wisc/stud) papers to download and prepare both publicly available inlier datasets as well as the pre-processed outlier datasets.
 
 ## FFS on Images
 
