@@ -560,10 +560,10 @@ class ROIHeadsLogisticGMMNew(ROIHeads):
 
         self.train_on_pred_boxes = train_on_pred_boxes
 
-        self.sample_number = self.cfg.VOS.SAMPLE_NUMBER
-        self.batch_size = self.cfg.VOS.BATCH_SIZE
-        self.sample_from = self.cfg.VOS.SAMPLE_FROM
-        self.start_iter = self.cfg.VOS.STARTING_ITER
+        self.sample_number = self.cfg.FFS.SAMPLE_NUMBER
+        self.batch_size = self.cfg.FFS.BATCH_SIZE
+        self.sample_from = self.cfg.FFS.SAMPLE_FROM
+        self.start_iter = self.cfg.FFS.STARTING_ITER
         # print(self.sample_number, self.start_iter)
 
         self.logistic_regression = torch.nn.Linear(1, 2)
@@ -900,7 +900,9 @@ class ROIHeadsLogisticGMMNew(ROIHeads):
                 # print(iteration)
                 lr_reg_loss = torch.zeros(1).cuda()
                 ########################################################################################
-                #############################    Flow Feature Synthesis      ###########################
+                ########################################################################################
+                #############################      Flow Synthesis      #################################
+                ########################################################################################
                 ########################################################################################
                 nll_loss = torch.zeros(1).cuda()
                 if iteration < self.start_iter:
@@ -910,6 +912,21 @@ class ROIHeadsLogisticGMMNew(ROIHeads):
                     # maintaining an ID data queue for each class.
                     z, sldj = self.flow_model(box_features[indices_numpy,].detach().cuda())
                     nll_loss = self.NLLLoss(z, sldj)
+                    # for index in indices_numpy:
+                        # dict_key = gt_classes_numpy[index]
+                        # z, sldj = self.flow_model(box_features[index].detach().view(1, -1).cuda())
+                        # nll_loss = self.NLLLoss(z, sldj)
+                        #self.data_dict[dict_key] = torch.cat((self.data_dict[dict_key][1:],
+                                                              #box_features[index].detach().view(1, -1)), 0)
+                        #print("data_dict[dict_key][1:] has shape:", self.data_dict[dict_key][1:].shape)
+                        #print("box_features[index].detach().view(1, -1) has shape:", box_features[index].detach().view(1, -1).shape)
+                    #data = torch.permute(self.data_dict,(1,0,2))
+                    #data = data.reshape(self.sample_number, self.num_classes*1024)
+                    #batch_idx = len(data) // self.batch_size
+                    #for i in range(0, batch_idx):
+                        #z, sldj = self.flow_model(data[i*self.batch_size: (i+1)*self.batch_size,].cuda())
+                        #nll_loss = self.NLLLoss(z, sldj)
+                    #del data
                 elif iteration >= self.start_iter:
                     selected_fg_samples = (gt_classes != predictions[0].shape[1] - 1).nonzero().view(-1)
                     indices_numpy = selected_fg_samples.cpu().numpy().astype(int)
@@ -917,9 +934,37 @@ class ROIHeadsLogisticGMMNew(ROIHeads):
                     # maintaining an ID data queue for each class.
                     z, sldj = self.flow_model(box_features[indices_numpy,].detach().cuda())
                     nll_loss = self.NLLLoss(z, sldj)
+                    # for index in indices_numpy:
+                        # dict_key = gt_classes_numpy[index]
+                        # z, sldj = self.flow_model(box_features[index].detach().view(1, -1).cuda())
+                        # nll_loss = self.NLLLoss(z, sldj)
+                        #self.data_dict[dict_key] = torch.cat((self.data_dict[dict_key][1:],
+                                                              #box_features[index].detach().view(1, -1)), 0)
+                    # the covariance finder needs the data to be centered.
+                    # for index in range(self.num_classes):
+                        # if index == 0:
+                            # X = self.data_dict[index] - self.data_dict[index].mean(0)
+                            # mean_embed_id = self.data_dict[index].mean(0).view(1, -1)
+                        # else:
+                            # X = torch.cat((X, self.data_dict[index] - self.data_dict[index].mean(0)), 0)
+                            # mean_embed_id = torch.cat((mean_embed_id,
+                                                       # self.data_dict[index].mean(0).view(1, -1)), 0)
 
+                    # # add the variance.
+                    # temp_precision = torch.mm(X.t(), X) / len(X)
+                    # # for stable training.
+                    # temp_precision += 0.0001 * self.eye_matrix
+
+                    #data = torch.permute(self.data_dict,(1,0,2))
+                    #data = data.reshape(self.sample_number, self.num_classes*1024)
+                    #batch_idx = len(data) // self.batch_size
+                    #for i in range(0, batch_idx):
+                        #z, sldj = self.flow_model(data[i*self.batch_size: (i+1)*self.batch_size,].cuda())
+                        #nll_loss = self.NLLLoss(z, sldj)
+                    #del data
                     #randomly sample from latent space of flow model
                     with torch.no_grad():
+                        #z_randn = torch.randn((self.sample_from, self.num_classes, 1024), dtype=torch.float32).cuda()
                         z_randn = torch.randn((self.sample_from, 1024), dtype=torch.float32).cuda()
                         negative_samples, _ = self.flow_model(z_randn, rev=True)
                         negative_samples = torch.sigmoid(negative_samples)
@@ -927,17 +972,34 @@ class ROIHeadsLogisticGMMNew(ROIHeads):
                         nll_neg = self.NLL(z_randn, sldj_neg)
                         cur_samples, index_prob = torch.topk(nll_neg, self.select)
                         ood_samples = negative_samples[index_prob].view(1,-1)
+                        #ood_samples = torch.squeeze(ood_samples)  
                         del negative_samples
                         del z_randn
                     
+                    # for index in range(self.num_classes):
+                        # new_dis = torch.distributions.multivariate_normal.MultivariateNormal(
+                            # mean_embed_id[index], covariance_matrix=temp_precision)
+                        # negative_samples = new_dis.rsample((self.sample_from,))
+                        # prob_density = new_dis.log_prob(negative_samples)
+
+                        # # keep the data in the low density area.
+                        # cur_samples, index_prob = torch.topk(- prob_density, self.select)
+                        # if index == 0:
+                            # ood_samples = negative_samples[index_prob]
+                        # else:
+                            # ood_samples = torch.cat((ood_samples, negative_samples[index_prob]), 0)
+                        # del new_dis
+                        # del negative_samples
+
 
                     if len(ood_samples) != 0:
                         # add some gaussian noise
                         # ood_samples = self.noise(ood_samples)
                         # energy_score_for_fg = 1 * torch.logsumexp(predictions[0][selected_fg_samples][:, :-1] / 1, 1)
-                        energy_score_for_fg = 1 * self.log_sum_exp(predictions[0][selected_fg_samples][:, :-1] / 1, 1)
+                        energy_score_for_fg = 0.01 * self.log_sum_exp(predictions[0][selected_fg_samples][:, :-1] / 0.01, 1)  #  in case of Youtube VIS; T =1
                         predictions_ood = self.box_predictor(ood_samples)
-                        energy_score_for_bg = 40 * self.log_sum_exp(predictions_ood[0][:, :-1] / 40, 1)
+                        # # energy_score_for_bg = 1 * torch.logsumexp(predictions_ood[0][:, :-1] / 1, 1)
+                        energy_score_for_bg = 0.01 * self.log_sum_exp(predictions_ood[0][:, :-1] / 0.01, 1)
 
                         input_for_lr = torch.cat((energy_score_for_fg, energy_score_for_bg), -1)
                         labels_for_lr = torch.cat((torch.ones(len(selected_fg_samples)).cuda(),
@@ -961,7 +1023,27 @@ class ROIHeadsLogisticGMMNew(ROIHeads):
 
                     del ood_samples
 
-
+                # else:
+                    # selected_fg_samples = (gt_classes != predictions[0].shape[1] - 1).nonzero().view(-1)
+                    # indices_numpy = selected_fg_samples.cpu().numpy().astype(int)
+                    # gt_classes_numpy = gt_classes.cpu().numpy().astype(int)
+                    # for index in indices_numpy:
+                        # dict_key = gt_classes_numpy[index]
+                        # #if self.number_dict[dict_key] < self.sample_number:
+                        # z, sldj = self.flow_model(box_features[index].detach().view(1, -1).cuda())
+                        # nll_loss = self.NLLLoss(z, sldj)
+                            #self.number_dict[dict_key] += 1
+                            #self.number_dict[dict_key] = box_features[index].detach()
+                            #self.data_dict[dict_key][self.number_dict[dict_key]] = box_features[index].detach()
+                         
+                            
+                    #data = torch.permute(self.data_dict,(1,0,2))        
+                    #data = data.reshape(self.sample_number, self.num_classes*1024)        
+                    #batch_idx = len(data) // self.batch_size
+                    #for i in range(0, batch_idx):
+                        #z, sldj = self.flow_model(data[i*self.batch_size: (i+1)*self.batch_size,].cuda())
+                        #nll_loss = self.NLLLoss(z, sldj)
+                    #del data
                 # create a dummy in order to have all weights to get involved in for a loss.
                 loss_dummy = self.cos(self.logistic_regression(torch.zeros(1).cuda()), self.logistic_regression.bias)
                 loss_dummy1 = self.cos(self.weight_energy(torch.zeros(self.num_classes).cuda()), self.weight_energy.bias)
@@ -980,6 +1062,16 @@ class ROIHeadsLogisticGMMNew(ROIHeads):
                     "loss_dummy": loss_dummy,
                     "loss_dummy1": loss_dummy1,
                 }
+            # else:
+                # losses = {
+                    # "loss_cls": cross_entropy(scores, gt_classes, reduction="mean"),
+                    # "lr_reg_loss":torch.zeros(1).cuda(),
+                    # "loss_box_reg": self.box_predictor.box_reg_loss(proposal_boxes, gt_boxes, proposal_deltas, gt_classes),
+                    # "loss_nll": 1e-6 * nll_loss,
+                    # "loss_dummy": loss_dummy,
+                    # "loss_dummy1": loss_dummy1,
+                    
+                # }
             losses =  {k: v * self.box_predictor.loss_weight.get(k, 1.0) for k, v in losses.items()}
 
             # proposals is modified in-place below, so losses must be computed first.
