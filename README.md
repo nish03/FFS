@@ -103,7 +103,7 @@ python apply_net.py
 --visualize 0
 ```
 
-** Step 3:** Finally, performance based on the evaluation metric such as FPR95 and AUROC can be computed as follows:
+**Step 3:** Finally, performance based on the evaluation metric such as FPR95 and AUROC can be computed as follows:
 
 For MS-COCO:
 ```

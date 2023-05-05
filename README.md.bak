@@ -66,7 +66,7 @@ python train_net_gmm.py
 ## Inference procedure
 **Evaluation with the FFS trained on PASCAL-VOC as the inlier dataset**
 
-First, the evaluation needs to be performed on the validation set of PASCAL-VOC as follows:
+**Step 1:** First, the evaluation needs to be performed on the validation set of PASCAL-VOC as follows:
 ```
 python apply_net.py  
 --dataset-dir /path/to/dataset/dir/VOC/
@@ -77,7 +77,7 @@ python apply_net.py
 --image-corruption-level 0 
 --visualize 0
 ```
-Then, the evaluation needs to be performed on the validation set of outlier data. 
+**Step 2:** Then, the evaluation needs to be performed on the validation set of outlier data. 
 
 For MS-COCO:
 ```
@@ -103,9 +103,20 @@ python apply_net.py
 --visualize 0
 ```
 
-Finally, obtain the evaluation metric scores via:
+** Step 3:** Finally, performance based on the evaluation metric such as FPR95 and AUROC can be computed as follows:
+
+For MS-COCO:
 ```
-python bdd_coco_plot.py
+python voc_coco_plot.py
+--name vos 
+--thres xxx 
+--energy 1 
+--seed 0
+```
+
+For OpenImages:
+```
+python voc_openimage_plot.py
 --name vos 
 --thres xxx 
 --energy 1 
