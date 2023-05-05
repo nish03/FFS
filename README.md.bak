@@ -8,12 +8,14 @@ This repository provides the source code for the CVPR 2023 highlight [paper](htt
 * [Installation](#Installation)
   * [Package Requirements](#package-requirements)
   * [Datasets](#Datasets)
-* [Using Pre-trained Models](#pretrained-models)
-* [Training from scratch](#training)
-* [Inference procedure](#inference)
-* [Visualization of results](#visualization)
-* [How to Cite](#citation)
-
+* [FFS on Images](#ffs-on-images)
+  * [(Images) Pre-trained models](#images-pre-trained-models)
+  * [(Images) Training](#images-training)
+  * [(Images) Inference](#images-inference)
+* [FFS on Video](#ffs-on-video) 
+  * [(Video) Pre-trained models](#video-pre-trained-models)
+  * [(Video) Training](#video-training)
+  * [(Video) Inference](#video-inference)
 
 ## Installation
 
@@ -26,12 +28,14 @@ Please note that the package versions in the requirements text file is  Addition
 ### Datasets
 We followed [VOS](https://github.com/deeplearning-wisc/vos) and [STUD](https://github.com/deeplearning-wisc/stud) papers to obtain both publicly available inlier datasets as well as the pre-processed outlier datasets. Please follow both these repositories for the dataset preparation. 
 
-## Using Pre-trained Models
+## FFS on Images
 
-## Training from scratch
+### (Images) Pre-trained models
+### (Images) Training
+### (Images) Evaluation
 
-## Inference procedure
+## FFS on Video
 
-## Visualization of results
-
-## How to Cite
+### (Video) Pre-trained models
+### (Video) Training
+### (Video) Evaluation
