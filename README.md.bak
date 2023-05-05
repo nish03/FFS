@@ -8,14 +8,12 @@ This repository provides the source code for the CVPR 2023 highlight [paper](htt
 * [Installation](#Installation)
   * [Package Requirements](#package-requirements)
   * [Datasets](#Datasets)
-* [FFS on Images](#ffs-on-images)
-  * [(Images) Pre-trained models](#images-pre-trained-models)
-  * [(Images) Training](#images-training)
-  * [(Images) Inference](#images-inference)
-* [FFS on Video](#ffs-on-video) 
-  * [(Video) Pre-trained models](#video-pre-trained-models)
-  * [(Video) Training](#video-training)
-  * [(Video) Inference](#video-inference)
+* [Using Pre-trained Models](#pretrained-models)
+* [Training from scratch](#training)
+* [Inference procedure](#inference)
+* [Visualization of results](#visualization)
+* [How to Cite](#citation)
+
 
 ## Installation
 
@@ -28,14 +26,29 @@ Please note that the package versions in the requirements text file is  Addition
 ### Datasets
 We followed [VOS](https://github.com/deeplearning-wisc/vos) and [STUD](https://github.com/deeplearning-wisc/stud) papers to obtain both publicly available inlier datasets as well as the pre-processed outlier datasets. Please follow both these repositories for the dataset preparation. 
 
-## FFS on Images
+## Using Pre-trained Models
 
-### (Images) Pre-trained models
-### (Images) Training
-### (Images) Evaluation
+## Training from scratch
+First and foremost, make sure you are inside the project folder by running
+```
+cd Flow_Feature_Synthesis
+```
+Secondly, you need to change the folder path where the dataset is placed in each of the below command before you start the training
+**For training FFS with PASCAL-VOC as the inlier image dataset**
+```
+python train_net_gmm.py  --dataset-dir /path/to/dataset/dir  --num-gpus 4 --config-file VOC-Detection/faster-rcnn/regnetx.yaml  --random-seed 0 --resume True  
+```
+**For training FFS with BDD100K as the inlier video dataset**
+```
+python train_net_gmm.py  --dataset-dir /path/to/dataset/dir  --num-gpus 4 --config-file BDD100K/stud_regnet.yaml  --random-seed 0 --resume True  
+```
+**For training FFS with Youtube-VIS as the inlier video dataset**
+```
+python train_net_gmm.py  --dataset-dir /path/to/dataset/dir  --num-gpus 4 --config-file VIS/stud_regnet.yaml  --random-seed 0 --resume True  
+``` 
 
-## FFS on Video
+## Inference procedure
 
-### (Video) Pre-trained models
-### (Video) Training
-### (Video) Evaluation
+## Visualization of results
+
+## How to Cite
