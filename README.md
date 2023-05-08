@@ -27,13 +27,17 @@ Please note that the package versions in the requirements text file is  Addition
 We followed [VOS](https://github.com/deeplearning-wisc/vos) and [STUD](https://github.com/deeplearning-wisc/stud) papers to obtain both publicly available inlier datasets as well as the pre-processed outlier datasets. Please follow both these repositories for the dataset preparation. 
 
 ## Using Pre-trained Models
-
+**Step 1:** You need to download the pre-trained FFS models for PASCAL-VOC, BDD100K Video and Youtube VIS datasets from [here](https://drive.google.com/drive/folders/1QGUn75onqWh6GUrmiPTCGP9o94PMHMeL?usp=share_link). Each of these models are trained with RegNetX as the backbone architecture. 
+**Step 2:**
 ## Training from scratch
-First and foremost, make sure you are inside the project folder by running
+**Step 1:** First and foremost, make sure you are inside the project folder by running
 ```
-cd Flow_Feature_Synthesis
+cd Flow-Feature-Synthesis/detection 
 ```
-Secondly, you need to change the folder path where the dataset is placed in each of the below command before you start the training
+**Step 2:** You need to download the pre-trained RegNetX-4.0GF backbone from [here](https://drive.google.com/file/d/1WyE_OIpzV_0E_Y3KF4UVxIZJTSqB7cPO/view?usp=sharing) and place it in ```/path/to/Flow-Feature-Synthesis/detection/configs/regnetx_detectron2.pth```.
+
+
+**Step 3:** You need to change the folder path where the dataset is placed in each of the below command before you start the training
 
 **For training FFS with PASCAL-VOC as the inlier image dataset**
 ```
