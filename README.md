@@ -24,56 +24,67 @@ pip install -r requirements.txt
 Please note that the package versions in the requirements text file is  Additionally, you need to install [Detectron2](https://detectron2.readthedocs.io/en/latest/tutorials/install.html) and [FrEIA](https://github.com/vislearn/FrEIA).
 
 ### Datasets
-We followed [VOS](https://github.com/deeplearning-wisc/vos) and [STUD](https://github.com/deeplearning-wisc/stud) papers to obtain both publicly available inlier datasets as well as the pre-processed outlier datasets. Please follow both these repositories for the dataset preparation. 
+Please follow the repositories of the [VOS](https://github.com/deeplearning-wisc/vos) and [STUD](https://github.com/deeplearning-wisc/stud) papers to obtain and prepare both publicly available inlier datasets as well as the pre-processed outlier datasets.
+**Note:** After you have prepared the datasets and placed in your dataset directory, you need to specify the correct dataset folder path in the ```/path/to/Flow-Feature-Synthesis/detection/core/datasets/setup_datasets.py``` by changing the ```/path/to/``` to the correct path. 
 
-## Using Pre-trained Models
-**Step 1:** You need to download the pre-trained FFS models for PASCAL-VOC, BDD100K Video and Youtube VIS datasets from [here](https://drive.google.com/drive/folders/1QGUn75onqWh6GUrmiPTCGP9o94PMHMeL?usp=share_link). Each of these models are trained with RegNetX as the backbone architecture. 
-**Step 2:**
-## Training from scratch
+
+## Training procedure
 **Step 1:** First and foremost, make sure you are inside the project folder by running
 ```
-cd Flow-Feature-Synthesis/detection 
+cd /path/to/Flow-Feature-Synthesis/detection 
 ```
 **Step 2:** You need to download the pre-trained RegNetX-4.0GF backbone from [here](https://drive.google.com/file/d/1WyE_OIpzV_0E_Y3KF4UVxIZJTSqB7cPO/view?usp=sharing) and place it in ```/path/to/Flow-Feature-Synthesis/detection/configs/regnetx_detectron2.pth```.
 
 
-**Step 3:** You need to change the folder path where the dataset is placed in each of the below command before you start the training
+**Step 3:** You need to change the folder path where the dataset is placed in each of the below commands before you start the training process. 
 
 **For training FFS with PASCAL-VOC as the inlier image dataset**
 ```
 python train_net_gmm.py  
---dataset-dir /path/to/dataset/dir/VOC/  
+--dataset-dir /path/to/dataset/VOC/  
 --num-gpus 4 
 --config-file VOC-Detection/faster-rcnn/regnetx.yaml  
 --random-seed 0 
 --resume True  
 ```
+The trained model will be saved at ```/path/to/Flow-Feature-Synthesis/detection/data/VOC-Detection/faster-rcnn/regnetx/random_seed_0/model_final.pth```.
+
 **For training FFS with BDD100K as the inlier video dataset**
 ```
 python train_net_gmm.py  
---dataset-dir /path/to/dataset/dir/BDD100k_video/bdd100k/  
+--dataset-dir /path/to/dataset/BDD100k_video/bdd100k/  
 --num-gpus 4 
---config-file BDD100K/stud_regnet.yaml  
+--config-file BDD100K/FFS_regnet.yaml  
 --random-seed 0 
 --resume True  
 ```
+The trained model will be saved at ```/path/to/Flow-Feature-Synthesis/detection/data/configs/BDD100k/FFS_regnet/random_seed_0/model_final.pth```.
+
 **For training FFS with Youtube-VIS as the inlier video dataset**
 ```
 python train_net_gmm.py  
---dataset-dir /path/to/dataset/dir/Youtube-VIS/  
+--dataset-dir /path/to/dataset/Youtube-VIS/  
 --num-gpus 4 
---config-file VIS/stud_regnet.yaml  
+--config-file VIS/FFS_regnet.yaml  
 --random-seed 0 
 --resume True  
 ``` 
+The trained model will be saved at ```/path/to/Flow-Feature-Synthesis/detection/data/configs/VIS/FFS_regnet/random_seed_0/model_final.pth```
+
+
+## Using Pre-trained Models
+If you would like to directly use the pre-trained FFS models instead of training a new instance of the FFS, please follow the below steps:
+**Step 1:** You need to download the pre-trained FFS models for PASCAL-VOC, BDD100K Video and Youtube VIS datasets from [here](https://drive.google.com/drive/folders/1QGUn75onqWh6GUrmiPTCGP9o94PMHMeL?usp=share_link). Each of these models are trained with RegNetX as the backbone architecture. 
+**Step 2:** Place them in the exact same folder as the above mentioned folders. 
 
 ## Inference procedure
 **Evaluation with the FFS trained on PASCAL-VOC as the inlier dataset**
 
 **Step 1:** First, the evaluation needs to be performed on the validation set of PASCAL-VOC as follows:
+
 ```
 python apply_net.py  
---dataset-dir /path/to/dataset/dir/VOC/
+--dataset-dir /path/to/dataset/VOC/
 --test-dataset voc_custom_val 
 --config-file VOC-Detection/faster-rcnn/regnetx.yaml 
 --inference-config Inference/standard_nms.yaml 
@@ -81,12 +92,13 @@ python apply_net.py
 --image-corruption-level 0 
 --visualize 0
 ```
+
 **Step 2:** Then, the evaluation needs to be performed on the validation set of outlier data. 
 
 For MS-COCO:
 ```
 python apply_net.py  
---dataset-dir /path/to/dataset/dir/COCO/ 
+--dataset-dir /path/to/dataset/COCO/ 
 --test-dataset coco_ood_val 
 --config-file VOC-Detection/faster-rcnn/regnetx.yaml  
 --inference-config Inference/standard_nms.yaml 
@@ -98,7 +110,7 @@ python apply_net.py
 For OpenImages:
 ```
 python apply_net.py  
---dataset-dir /path/to/dataset/dir/OpenImages/  
+--dataset-dir /path/to/dataset/OpenImages/  
 --test-dataset openimages_ood_val 
 --config-file VOC-Detection/faster-rcnn/regnetx.yaml  
 --inference-config Inference/standard_nms.yaml 
@@ -126,6 +138,8 @@ python voc_openimage_plot.py
 --energy 1 
 --seed 0
 ```
+
+
 
 ## Visualization of results
 

@@ -8,5 +8,5 @@
 #SBATCH --partition=alpha
 module load modenv/hiera GCC/10.2.0 CUDA/11.1.1 OpenMPI/4.0.5 Python/3.8.6 
 source ~/python-environments/torchvision_env/bin/activate
-python train_net_gmm.py  --dataset-dir /projects/p084/p_discoret/Youtube-VIS  --num-gpus 4 --config-file VIS/FFS_regnet.yaml  --random-seed 0 --resume True  
+python train_net_gmm.py  --dataset-dir /projects/p084/p_discoret/BDD100k_video/bdd100k/  --num-gpus 4 --config-file BDD100k/stud_regnet.yaml  --random-seed 0 --resume True  
  

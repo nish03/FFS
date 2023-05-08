@@ -24,7 +24,7 @@ def setup_all_datasets(dataset_dir, image_root_corruption_prefix=None):
     setup_openim_odd_dataset(dataset_dir)
     setup_bdd_dataset(dataset_dir)
     setup_coco_ood_bdd_dataset(dataset_dir)
-    register_vis_dataset()
+    register_vis_dataset(dataset_dir)
     register_all_bdd_tracking(dataset_dir)
     register_all_coco(dataset_dir)
     register_coco_ood_wrt_bdd(dataset_dir)
@@ -312,7 +312,7 @@ def setup_openimages_ood_oe_dataset(dataset_dir):
 ####################################################################
 
   
-def register_vis_dataset():
+def register_vis_dataset(dataset_dir):
     thing_classes = ['airplane', 'bear', 'bird', 'boat', 'car', 'cat', 'cow', 'deer', 'dog', 'duck',
                    'earless_seal', 'elephant', 'fish', 'flying_disc', 'fox', 'frog', 'giant_panda',
                    'giraffe', 'horse', 'leopard', 'lizard', 'monkey', 'motorbike', 'mouse', 'parrot',
@@ -328,14 +328,14 @@ def register_vis_dataset():
     register_coco_instances(
             'vis21_val',
             metadata,
-            '/projects/p084/p_discoret/Youtube-VIS/train/instances_val.json',
-            "/projects/p084/p_discoret/Youtube-VIS/train/JPEGImages/",
+            os.path.join(dataset_dir, "train", "instances_val.json"),
+            os.path.join(dataset_dir, "train", "JPEGImages"),
     )
     register_coco_instances(
             'vis21_train',
             metadata,
-            '/projects/p084/p_discoret/Youtube-VIS/train/instances_train.json',
-            "/projects/p084/p_discoret/Youtube-VIS/train/JPEGImages/",
+            os.path.join(dataset_dir, "train", "instances_train.json"),
+            os.path.join(dataset_dir, "train", "JPEGImages"),
     )  
     MetadataCatalog.get(
         "vis21_train").thing_dataset_id_to_contiguous_id = VIS_THING_DATASET_ID_TO_CONTIGUOUS_ID
@@ -349,12 +349,12 @@ def register_all_bdd_tracking(dataset_dir):
     _PREDEFINED_SPLITS_BDDT = {
         "bdd_tracking_2k": {
             "bdd_tracking_2k_train": (
-                "/projects/p084/p_discoret/BDD100k_video/bdd100k/images/track/train",
-                "/projects/p084/p_discoret/BDD100k_video/bdd100k/labels/track/bdd100k_det_train_coco.json",
+                os.path.join(dataset_dir,"images", "track", "train"),
+                os.path.join(dataset_dir,"labels", "track", "bdd100k_det_train_coco.json"),
             ),
             "bdd_tracking_2k_val": (
-                "/projects/p084/p_discoret/BDD100k_video/bdd100k/images/track/val",
-                "/projects/p084/p_discoret/BDD100k_video/bdd100k/labels/track/bdd100k_det_val_coco.json",
+                os.path.join(dataset_dir,"images", "track", "val"),
+                os.path.join(dataset_dir,"labels","track", "bdd100k_det_val_coco.json"),
             ),
         },
     }
@@ -394,15 +394,15 @@ def register_all_bdd_tracking(dataset_dir):
     register_coco_instances(
         'nu_bdd_ood',
         metadata,
-        '/projects/p084/p_discoret/nuImages/nu_ood.json',
-        "/projects/p084/p_discoret/nuImages/",
+        os.path.join(dataset_dir,"nu_ood.json"),
+        dataset_dir,
     )
-    coco_api = COCO('/projects/p084/p_discoret/nuImages/nu_ood.json')
+    coco_api = COCO(os.path.join(dataset_dir,"nu_ood.json"))
     cat_ids = sorted(coco_api.getCatIds())
     id_map = {v: i for i, v in enumerate(cat_ids)}
     MetadataCatalog.get("nu_bdd_ood").thing_dataset_id_to_contiguous_id = id_map
     
-    # # register the coco ood dataset wrt the vis dataset.
+    # register the coco ood dataset wrt the vis dataset.
     metadata = {
         "thing_classes": ['person', 'bicycle', 'car', 'motorcycle', 'airplane',
                               'bus', 'train', 'truck', 'boat', 'traffic light',
@@ -423,10 +423,10 @@ def register_all_bdd_tracking(dataset_dir):
     register_coco_instances(
         'vis_coco_ood',
         metadata,
-        '/projects/p084/p_discoret/COCO/annotations/instances_val2017_ood_wrt_vis.json',
-        "/projects/p084/p_discoret/COCO/train2017/",
+        os.path.join(dataset_dir,"annotations","instances_val2017_ood_wrt_vis.json"),
+        os.path.join(dataset_dir,"train2017"),
     )    
-    coco_api = COCO('/projects/p084/p_discoret/COCO/annotations/instances_val2017_ood_wrt_vis.json')
+    coco_api = COCO(os.path.join(dataset_dir,"annotations", "instances_val2017_ood_wrt_vis.json"))
     cat_ids = sorted(coco_api.getCatIds())
     id_map = {v: i for i, v in enumerate(cat_ids)}
     MetadataCatalog.get("vis_coco_ood").thing_dataset_id_to_contiguous_id = id_map
@@ -465,9 +465,6 @@ def register_coco_ood_wrt_bdd(dataset_dir):
     register_coco_instances('coco_2017_val_ood_wrt_bdd', metadata,
                                 test_json_annotations,
                                   test_image_dir)
-    #coco_api = COCO('/projects/p084/p_discoret/COCO/annotations/instances_val2017_ood_wrt_bdd.json')
-    #cat_ids = sorted(coco_api.getCatIds())
-    #id_map = {v: i for i, v in enumerate(cat_ids)}
     MetadataCatalog.get("coco_2017_val_ood_wrt_bdd").thing_dataset_id_to_contiguous_id = MetadataCatalog.get(
     'coco_2017_train').thing_dataset_id_to_contiguous_id                                  
                                   

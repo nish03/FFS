@@ -4,7 +4,7 @@ MODEL:
   BACKBONE:
     NAME: "build_regnetx_fpn_backbone"
   META_ARCHITECTURE: "GeneralizedRCNNLogisticGMM"
-  WEIGHTS: "/home/h1/s8993054/Flow-Feature-Synthesis/detection/configs/VOC-Detection/faster-rcnn/regnetx_detectron2.pth"
+  WEIGHTS: "/home/h1/s8993054/Flow-Feature-Synthesis/detection/configs/regnetx_detectron2.pth"
 
 #  PROPOSAL_GENERATOR:
 #    NAME: "RPNLogistic"
