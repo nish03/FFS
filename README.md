@@ -78,7 +78,7 @@ If you would like to directly use the pre-trained FFS models instead of training
 **Step 2:** Place them in the exact same folder as the folders where the trained models gets saved for the training procedure. 
 
 ## Inference procedure
-Note: The inference procedure is common irrespective of whether you use pre-trained models or trained the models following the training procedure mentioned before. 
+Note:  The inference procedure is common irrespective of whether you use pre-trained models or trained the models following the training procedure mentioned before. 
 
 **Evaluation with the FFS trained on PASCAL-VOC as the inlier dataset**
 **Step 1:** First, the evaluation needs to be performed on the validation set of PASCAL-VOC as follows:

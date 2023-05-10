@@ -21,7 +21,7 @@ This repository provides the source code for the CVPR 2023 highlight [paper](htt
 ```
 pip install -r requirements.txt
 ```
-Please note that the package versions in the requirements text file is  Additionally, you need to install [Detectron2](https://detectron2.readthedocs.io/en/latest/tutorials/install.html) and [FrEIA](https://github.com/vislearn/FrEIA).
+Additionally, you need to install [Detectron2](https://detectron2.readthedocs.io/en/latest/tutorials/install.html) and [FrEIA](https://github.com/vislearn/FrEIA).
 
 ### Datasets
 Please follow the repositories of the [VOS](https://github.com/deeplearning-wisc/vos) and [STUD](https://github.com/deeplearning-wisc/stud) papers to obtain and prepare both publicly available inlier datasets as well as the pre-processed outlier datasets.
@@ -75,11 +75,12 @@ The trained model will be saved at ```/path/to/Flow-Feature-Synthesis/detection/
 ## Using Pre-trained Models
 If you would like to directly use the pre-trained FFS models instead of training a new instance of the FFS, please follow the below steps:
 **Step 1:** You need to download the pre-trained FFS models for PASCAL-VOC, BDD100K Video and Youtube VIS datasets from [here](https://drive.google.com/drive/folders/1QGUn75onqWh6GUrmiPTCGP9o94PMHMeL?usp=share_link). Each of these models are trained with RegNetX as the backbone architecture. 
-**Step 2:** Place them in the exact same folder as the above mentioned folders. 
+**Step 2:** Place them in the exact same folder as the folders where the trained models gets saved for the training procedure. 
 
 ## Inference procedure
-**Evaluation with the FFS trained on PASCAL-VOC as the inlier dataset**
+Note: The inference procedure is common irrespective of whether you use pre-trained models or trained the models following the training procedure mentioned before. 
 
+**Evaluation with the FFS trained on PASCAL-VOC as the inlier dataset**
 **Step 1:** First, the evaluation needs to be performed on the validation set of PASCAL-VOC as follows:
 
 ```
