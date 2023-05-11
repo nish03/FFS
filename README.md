@@ -72,7 +72,7 @@ python train_net_gmm.py
 The trained model will be saved at ```/path/to/Flow-Feature-Synthesis/detection/data/configs/VIS/FFS_regnet/random_seed_0/model_final.pth```
 
 
-## Using Pre-trained Models
+## Using Pre-trained FFS Models
 If you would like to directly use the pre-trained FFS models instead of training a new instance of the FFS, please follow the below steps:
 **Step 1:** You need to download the pre-trained FFS models for PASCAL-VOC, BDD100K Video and Youtube VIS datasets from [here](https://drive.google.com/drive/folders/1QGUn75onqWh6GUrmiPTCGP9o94PMHMeL?usp=share_link). Each of these models are trained with RegNetX as the backbone architecture. 
 **Step 2:** Place them in the exact same folder as the folders where the trained models gets saved for the training procedure. 
