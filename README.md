@@ -9,7 +9,7 @@ This repository provides the source code for the CVPR 2023 highlight [paper](htt
   * [Package Requirements](#package-requirements)
   * [Datasets](#Datasets)
 * [Using Pre-trained FFS Models](#pretrained-models)
-* [Training from scratch](#training)
+* [Training FFS from scratch](#training)
 * [Inference procedure](#inference)
 * [Visualization of results](#visualization)
 * [How to Cite](#citation)
@@ -28,7 +28,7 @@ Please follow the repositories of the [VOS](https://github.com/deeplearning-wisc
 **Note:** After you have prepared the datasets and placed in your dataset directory, you need to specify the correct dataset folder path in the ```/path/to/Flow-Feature-Synthesis/detection/core/datasets/setup_datasets.py``` by changing the ```/path/to/``` to the correct path. 
 
 
-## Training procedure
+## Training FFS from scratch
 **Step 1:** First and foremost, make sure you are inside the project folder by running
 ```
 cd /path/to/Flow-Feature-Synthesis/detection 
