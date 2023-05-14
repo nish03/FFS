@@ -5,15 +5,16 @@ This repository provides the source code for the CVPR 2023 highlight [paper](htt
 * Regularizes the object detection framework to make it outlier-aware via discriminative training procedure that separates the energy surface of the synthesized outliers and inlier features. 
 
 ## Content
+* [How to Cite](#citation)
 * [Installation](#Installation)
   * [Package Requirements](#package-requirements)
   * [Datasets](#Datasets)
-* [Using Pre-trained FFS Models](#pretrained-models)
 * [Training FFS from scratch](#training)
+* [Using Pre-trained FFS Models](#pretrained-models)
 * [Inference procedure](#inference)
 * [Visualization of results](#visualization)
-* [How to Cite](#citation)
 
+## How to Cite
 
 ## Installation
 
@@ -144,4 +145,4 @@ python voc_openimage_plot.py
 
 ## Visualization of results
 
-## How to Cite
+
