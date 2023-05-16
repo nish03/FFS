@@ -5,6 +5,7 @@ This repository provides the source code for the CVPR 2023 highlight [paper](htt
 * Regularizes the object detection framework to make it outlier-aware via discriminative training procedure that separates the energy surface of the synthesized outliers and inlier features. 
 
 # Key Diagram
+Coming Soon
 
 ## Content
 * [How to Cite](#citation)
@@ -17,6 +18,7 @@ This repository provides the source code for the CVPR 2023 highlight [paper](htt
 * [Visualization of results](#visualization)
 
 ## How to Cite
+Coming Soon
 
 ## Installation
 
