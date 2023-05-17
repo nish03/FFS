@@ -18,6 +18,7 @@ Coming Soon
 * [Visualization of results](#visualization)
 
 ## How to Cite
+If you find this code or paper useful in your research, please consider citing our paper as:
 ```
 @InProceedings{Kumar_2023_CVPR,
     author    = {Kumar, Nishant and \v{S}egvi\'c, Sini\v{s}a and Eslami, Abouzar and Gumhold, Stefan},
