@@ -18,7 +18,16 @@ Coming Soon
 * [Visualization of results](#visualization)
 
 ## How to Cite
-Coming Soon
+```
+@InProceedings{Kumar_2023_CVPR,
+    author    = {Kumar, Nishant and \v{S}egvi\'c, Sini\v{s}a and Eslami, Abouzar and Gumhold, Stefan},
+    title     = {Normalizing Flow Based Feature Synthesis for Outlier-Aware Object Detection},
+    booktitle = {Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)},
+    month     = {June},
+    year      = {2023},
+    pages     = {5156-5165}
+}
+```
 
 ## Installation
 
