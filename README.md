@@ -93,12 +93,15 @@ If you would like to directly use the pre-trained FFS models instead of training
 
 **Step 1:** You need to download the pre-trained FFS models for PASCAL-VOC, BDD100K Video and Youtube VIS datasets from [here](https://drive.google.com/drive/folders/1QGUn75onqWh6GUrmiPTCGP9o94PMHMeL?usp=share_link). Each of these models are trained with RegNetX as the backbone architecture. 
 
-**Step 2:** Place ```model_final.pth``` in the exact same folder where the trained models gets saved for the training procedure. Example: For the pre-trained model for PASCAL-VOC, you need to place the model at ```/path/to/Flow-Feature-Synthesis/detection/data/VOC-Detection/faster-rcnn/regnetx/random_seed_0/model_final.pth```. 
+**Step 2:** Place ```model_final.pth``` in the exact same folder where the trained models gets saved for the training procedure. Example: For the pre-trained model of PASCAL-VOC, you need to place the model at ```/path/to/Flow-Feature-Synthesis/detection/data/VOC-Detection/faster-rcnn/regnetx/random_seed_0/model_final.pth```. 
+
+**Note:** The path needs to be created if you directly use the pre-trained models instead of first performing the training from scratch. 
 
 ## Inference procedure
-Note:  The inference procedure is common irrespective of whether you use pre-trained models or trained the models following the training procedure mentioned before. 
+**Note:**  The inference procedure is common irrespective of whether you use pre-trained models or trained the models following the training procedure mentioned before. 
 
 **Evaluation with the FFS trained on PASCAL-VOC as the inlier dataset**
+
 **Step 1:** First, the evaluation needs to be performed on the validation set of PASCAL-VOC as follows:
 
 ```
@@ -138,21 +141,25 @@ python apply_net.py
 --visualize 0
 ```
 
-**Step 3:** Finally, performance based on the evaluation metric such as FPR95 and AUROC can be computed as follows:
+**Step 3:** Finally, the outlier detection performance based on the evaluation metric such as FPR95 and AUROC can be computed as follows:
 
 For MS-COCO:
 ```
 python voc_coco_plot.py
---name vos 
+--name regnetx 
 --thres xxx 
 --energy 1 
 --seed 0
 ```
 
+**Note:** You can obtain the threshold value by looking at the name of the file at ```/path/to/Flow-Feature-Synthesis/detection/data/VOC-Detection/faster-rcnn/regnetx/random_seed_0/inference/voc_custom_val/standard_nms/corruption_level_0/probabilistic_scoring_res_odd_xxxx.txt```.
+For our pre-trained model with PASCAL-VOC dataset, the threshold should be ```0.5959``` and running the above script should result in the exact numbers as reported in our paper. 
+ 
+
 For OpenImages:
 ```
 python voc_openimage_plot.py
---name vos 
+--name regnetx 
 --thres xxx 
 --energy 1 
 --seed 0
