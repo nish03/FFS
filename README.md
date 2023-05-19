@@ -152,7 +152,7 @@ python voc_coco_plot.py
 --seed 0
 ```
 
-**Note:** You can obtain the threshold value by looking at the name of the file at ```/path/to/Flow-Feature-Synthesis/detection/data/VOC-Detection/faster-rcnn/regnetx/random_seed_0/inference/voc_custom_val/standard_nms/corruption_level_0/probabilistic_scoring_res_odd_xxxx.txt```.
+**Note:** You can obtain the threshold value by looking at the name of the file ```probabilistic_scoring_res_odd_0.5959.txt``` at ```/path/to/Flow-Feature-Synthesis/detection/data/VOC-Detection/faster-rcnn/regnetx/random_seed_0/inference/voc_custom_val/standard_nms/corruption_level_0/probabilistic_scoring_res_odd_xxxx.txt```.
 For our pre-trained model with PASCAL-VOC dataset, the threshold should be ```0.5959``` and running the above script should result in the exact numbers as reported in our paper. 
  
 
