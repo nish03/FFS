@@ -3,7 +3,7 @@ This repository provides the source code for the CVPR 2023 highlight [paper](htt
 * Learns inlier features using invertible Normalizing Flow model within the object detection framework. 
 * Generates synthetic outlier features in the inverse direction after random sampling from the latent space of the Flow model. 
 * Regularizes the object detection framework to make it outlier-aware via discriminative training procedure that separates the energy surface of the synthesized outliers and inlier features. 
-
+* Performs outlier-aware object detection on both image and video based datasets. 
 # Key Diagram
 Coming Soon
 
@@ -165,8 +165,40 @@ python voc_openimage_plot.py
 --seed 0
 ```
 
+**Evaluation with the FFS trained on BDD100K as the inlier video dataset**
+
+**Evaluation with the FFS trained on Youtube-VIS as the inlier video dataset**
 
 
 ## Visualization of results
+
+
+VOS vs FFS on nuImages and STUD vs FFS on OpenImages is not possible since ID and OD may not be mutually independent
+
+
+For MS-COCO and OpenImage visualization on VOS trained on PASCAL-VOC dataset, the threshold for vos_visualize_voc = 16.189585. The procedure is a) run the indist, b) run the outdist, c) run python voc_coco_plot to print thresh from metric_utils, d) change line 131 RHS in inference_core.py to number of classes and then e) change the threshold to 16.189585 in line 97 of apply_net.py f) then final run outdist with visualize is true
+
+
+
+
+For MS-COCO and OpenImage visualization on FFS trained on PASCAL-VOC dataset, the threshold for ffs_visualize_voc = 11.95079. The procedure is a) run the indist, b) run the outdist, c) run python voc_coco_plot to print thresh from metric_utils, d) change line 131 RHS in inference_core.py to number of classes and then e) change the threshold to 11.95079. in line 97 of apply_net.py f) then final run outdist with visualize is true (edited)
+
+
+
+
+For nuImage visualization on STUD trained on BDD100K dataset, the threshold for stud_visualize_bdd = 3.490076. The procedure is: a) run the indist for STUD b) run the outdist for STUD c) run python bdd_coco.py with thresholds[cutoff] printed from metric_utils d) In src.engine.myvisualizer.py make sure line 114-115 is uncommented, line 112 is uncommented e) In src.engine.defaults.py line 768, change the threshold to the one found and change Line 685 RHS to number of classes i,e, 8 in case of BDD100k f) make sure in the outdist.sh script, you have first --config-file, --savefigdir (with path) and then --visualize
+
+
+
+For MS-COCO visualization on STUD trained on Youtube-VIS dataset, the threshold for stud_visualize_bdd = 5.0098214. The procedure is: a) run the indist for STUD b) run the outdist for STUD c) run python vis_coco.py with thresholds[cutoff] printed from metric_utils d) In src.engine.myvisualizer.py make sure line 114-115 is uncommented, line 112 is uncommented e) In src.engine.defaults.py line 768, change the threshold to the one found and change Line 685 RHS to number of classes i,e, 40 in case of YoutubeVIS f) make sure in the outdist.sh script, you have first --config-file, --savefigdir (with path) and then --visualize
+
+
+
+For MS-COCO visualization on FFS trained on Youtube-VIS dataset, the threshold is = 5.445534. The procedure is: a) run the indist b) run the outdist  c) run python vis_coco_plot.py with thresholds[cutoff] printed from metric_utils d) change line 131 RHS in inference_core.py to number of classes e) change the threshold to 5.445534 in line 97 of apply_net.py f) then final run outdist with visualize true
+
+
+
+For nuImage visualization on FFS trained on BDD100K dataset, the threshold is = 5.7650447. The procedure is: a) run the indist b) run the outdist  c) run python vis_coco_plot.py with thresholds[cutoff] printed from metric_utils d) change line 131 RHS in inference_core.py to number of classes e) change the threshold to 5.7650447 in line 97 of apply_net.py f) then final run outdist with visualize true
+
 
 

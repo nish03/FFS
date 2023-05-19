@@ -3,7 +3,7 @@ This repository provides the source code for the CVPR 2023 highlight [paper](htt
 * Learns inlier features using invertible Normalizing Flow model within the object detection framework. 
 * Generates synthetic outlier features in the inverse direction after random sampling from the latent space of the Flow model. 
 * Regularizes the object detection framework to make it outlier-aware via discriminative training procedure that separates the energy surface of the synthesized outliers and inlier features. 
-
+* Performs outlier-aware object detection on both image and video based datasets. 
 # Key Diagram
 Coming Soon
 
@@ -152,7 +152,7 @@ python voc_coco_plot.py
 --seed 0
 ```
 
-**Note:** You can obtain the threshold value by looking at the name of the file at ```/path/to/Flow-Feature-Synthesis/detection/data/VOC-Detection/faster-rcnn/regnetx/random_seed_0/inference/voc_custom_val/standard_nms/corruption_level_0/probabilistic_scoring_res_odd_xxxx.txt```.
+**Note:** You can obtain the threshold value by looking at the name of the file ```probabilistic_scoring_res_odd_0.5959.txt``` at ```/path/to/Flow-Feature-Synthesis/detection/data/VOC-Detection/faster-rcnn/regnetx/random_seed_0/inference/voc_custom_val/standard_nms/corruption_level_0/probabilistic_scoring_res_odd_xxxx.txt```.
 For our pre-trained model with PASCAL-VOC dataset, the threshold should be ```0.5959``` and running the above script should result in the exact numbers as reported in our paper. 
  
 
@@ -165,6 +165,9 @@ python voc_openimage_plot.py
 --seed 0
 ```
 
+**Evaluation with the FFS trained on BDD100K as the inlier video dataset**
+
+**Evaluation with the FFS trained on Youtube-VIS as the inlier video dataset**
 
 
 ## Visualization of results
