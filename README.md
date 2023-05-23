@@ -197,11 +197,15 @@ python vis_nuImage_plot.py --name regnetx --thres xxx --energy 1 --seed 0
 
 To visualize the performance of FFS on the outlier datasets, you need to perform the following procedure:
 
-a) Run the evaluation scripts for the inliers, outliers and metrics i.e. Step 1, Step 2 and Step 3 respectively. 
-b) Note down the threshold score printed based on line 85 in ```metric_utils.py```. For our pre-trained models with inlier datasets as PASCAL-VOC, BDD100K(Video) and Youtube-VIS, the thresholds are 11.95079, 5.7650447 and 5.445534 respectively.
-d) Change the right hand side of the line 131 in ```inference_core.py``` to the number of inlier classes (e.g. for PASCAL-VOC, it should be 20 since there are 20 inlier classes in this dataset)
-e) Change the threshold in line 97 of ```apply_net.py``` to the value obtained in b). 
-f) Finally run the evaluation script for the outlier dataset with ```--visualize 1```. 
+**a)** Run the evaluation scripts for the inliers, outliers and metrics i.e. Step 1, Step 2 and Step 3 respectively. 
+
+**b)** Note down the threshold score printed based on line 85 in ```metric_utils.py```. For our pre-trained models with inlier datasets as PASCAL-VOC, BDD100K(Video) and Youtube-VIS, the thresholds are 11.95079, 5.7650447 and 5.445534 respectively.
+
+**d)** Change the right hand side of the line 131 in ```inference_core.py``` to the number of inlier classes (e.g. for PASCAL-VOC, it should be 20 since there are 20 inlier classes in this dataset)
+
+**e)** Change the threshold in line 97 of ```apply_net.py``` to the value obtained in b). 
+
+**f)** Finally run the evaluation script for the outlier dataset with ```--visualize 1```. 
 
 
 
