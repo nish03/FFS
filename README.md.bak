@@ -5,7 +5,7 @@ This repository provides the source code for the CVPR 2023 highlight [paper](htt
 * Regularizes the object detection framework to make it outlier-aware via discriminative training procedure that separates the energy surface of the synthesized outliers and inlier features. 
 * Performs outlier-aware object detection on both image and video based datasets. 
 # Key Diagram
-![GitHub Logo](/assets/Method.pdf)
+![GitHub Logo](Flow-Feature-Synthesis/assets/Method.jpg)
 
 ## Content
 * [How to Cite](#citation)
