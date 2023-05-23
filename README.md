@@ -4,10 +4,10 @@ This repository provides the source code for the CVPR 2023 highlight [paper](htt
 * Generates synthetic outlier features in the inverse direction after random sampling from the latent space of the Flow model. 
 * Regularizes the object detection framework to make it outlier-aware via discriminative training procedure that separates the energy surface of the synthesized outliers and inlier features. 
 * Performs outlier-aware object detection on both image and video based datasets. 
-# Key Diagram
+# Method Diagram
 ![GitHub Logo](/Flow-Feature-Synthesis/assets/Method.jpg)
 
-## Content
+# Content
 * [How to Cite](#citation)
 * [Installation](#Installation)
   * [Package Requirements](#package-requirements)
@@ -17,7 +17,7 @@ This repository provides the source code for the CVPR 2023 highlight [paper](htt
 * [Inference procedure](#inference)
 * [Visualization of results](#visualization)
 
-## How to Cite
+# How to Cite
 If you find this code or paper useful in your research, please consider citing our paper as follows:
 ```
 @InProceedings{Kumar_2023_CVPR,
@@ -30,7 +30,7 @@ If you find this code or paper useful in your research, please consider citing o
 }
 ```
 
-## Installation
+# Installation
 
 ### Package Requirements
 ```
@@ -44,7 +44,7 @@ Please follow the repositories of the [VOS](https://github.com/deeplearning-wisc
 **Note:** After you have prepared the datasets and placed in your dataset directory, you need to specify the correct dataset folder path in the ```/path/to/Flow-Feature-Synthesis/detection/core/datasets/setup_datasets.py``` by changing the ```/path/to/``` to the correct path. 
 
 
-## Training FFS from scratch
+# Training FFS from scratch
 **Step 1:** First and foremost, make sure you are inside the project folder by running
 ```
 cd /path/to/Flow-Feature-Synthesis/detection 
@@ -73,7 +73,7 @@ python train_net_gmm.py  --dataset-dir /path/to/dataset/Youtube-VIS/  --num-gpus
 The trained model will be saved at ```/path/to/Flow-Feature-Synthesis/detection/data/configs/VIS/FFS_regnet/random_seed_0/model_final.pth```
 
 
-## Using Pre-trained FFS Models
+# Using Pre-trained FFS Models
 If you would like to directly use the pre-trained FFS models instead of training a new instance of the FFS, please follow the below steps:
 
 **Step 1:** You need to download the pre-trained FFS models for PASCAL-VOC, BDD100K Video and Youtube VIS datasets from [here](https://drive.google.com/drive/folders/1QGUn75onqWh6GUrmiPTCGP9o94PMHMeL?usp=share_link). Each of these models are trained with RegNetX as the backbone architecture. 
@@ -82,7 +82,7 @@ If you would like to directly use the pre-trained FFS models instead of training
 
 **Note:** The path needs to be created if you directly use the pre-trained models instead of first performing the training from scratch. 
 
-## Inference procedure
+# Inference procedure
 **Note:**  The inference procedure is common irrespective of whether you use pre-trained models or trained the models following the training procedure mentioned before. 
 
 **Evaluation with the FFS trained on PASCAL-VOC as the inlier dataset**
@@ -193,7 +193,7 @@ python vis_nuImage_plot.py --name regnetx --thres xxx --energy 1 --seed 0
 
 
 
-## Visualization of results
+# Visualization of results
 
 To visualize the performance of FFS on the outlier datasets, you need to perform the following procedure:
 
