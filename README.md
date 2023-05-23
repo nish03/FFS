@@ -153,7 +153,7 @@ python bdd_coco_plot.py --name regnetx --thres xxx --energy 1 --seed 0
 For nuImages:
 ```
 python bdd_nuImage_plot.py --name regnetx --thres xxx --energy 1 --seed 0
-
+```
 
 
 
@@ -189,7 +189,7 @@ python vis_coco_plot.py --name regnetx --thres xxx --energy 1 --seed 0
 For nuImages:
 ```
 python vis_nuImage_plot.py --name regnetx --thres xxx --energy 1 --seed 0
-
+```
 
 
 
