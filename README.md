@@ -167,7 +167,36 @@ python voc_openimage_plot.py
 
 **Evaluation with the FFS trained on BDD100K as the inlier video dataset**
 
+**Step 1:** First, the evaluation needs to be performed on the validation set of BDD100K (Videos) as follows:
+
+```
+python apply_net.py  
+--dataset-dir /path/to/dataset/BDD100k_video/bdd100k/
+--test-dataset bdd_tracking_2k_val 
+--config-file BDD100k/FFS_regnet.yaml 
+--inference-config Inference/standard_nms.yaml 
+--random-seed 0 
+--image-corruption-level 0 
+--visualize 0
+```
+
+
+
 **Evaluation with the FFS trained on Youtube-VIS as the inlier video dataset**
+
+**Step 1:** First, the evaluation needs to be performed on the validation set of Youtube-VIS as follows:
+
+```
+python apply_net.py 
+--dataset-dir /projects/p084/p_discoret/Youtube-VIS  
+--test-dataset vis21_val 
+--config-file VIS/FFS_regnet.yaml 
+--inference-config Inference/standard_nms.yaml 
+--random-seed 0 
+--image-corruption-level 0 
+--visualize 0
+```
+
 
 
 ## Visualization of results
