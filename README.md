@@ -56,34 +56,19 @@ cd /path/to/Flow-Feature-Synthesis/detection
 
 **For training FFS with PASCAL-VOC as the inlier image dataset**
 ```
-python train_net_gmm.py  
---dataset-dir /path/to/dataset/VOC/  
---num-gpus 4 
---config-file VOC-Detection/faster-rcnn/regnetx.yaml  
---random-seed 0 
---resume True  
+python train_net_gmm.py  --dataset-dir /path/to/dataset/VOC/  --num-gpus 4 --config-file VOC-Detection/faster-rcnn/regnetx.yaml  --random-seed 0 --resume True  
 ```
 The trained model will be saved at ```/path/to/Flow-Feature-Synthesis/detection/data/VOC-Detection/faster-rcnn/regnetx/random_seed_0/model_final.pth```.
 
 **For training FFS with BDD100K as the inlier video dataset**
 ```
-python train_net_gmm.py  
---dataset-dir /path/to/dataset/BDD100k_video/bdd100k/  
---num-gpus 4 
---config-file BDD100K/FFS_regnet.yaml  
---random-seed 0 
---resume True  
+python train_net_gmm.py  --dataset-dir /path/to/dataset/BDD100k_video/bdd100k/  --num-gpus 4 --config-file BDD100K/FFS_regnet.yaml  --random-seed 0 --resume True  
 ```
 The trained model will be saved at ```/path/to/Flow-Feature-Synthesis/detection/data/configs/BDD100k/FFS_regnet/random_seed_0/model_final.pth```.
 
 **For training FFS with Youtube-VIS as the inlier video dataset**
 ```
-python train_net_gmm.py  
---dataset-dir /path/to/dataset/Youtube-VIS/  
---num-gpus 4 
---config-file VIS/FFS_regnet.yaml  
---random-seed 0 
---resume True  
+python train_net_gmm.py  --dataset-dir /path/to/dataset/Youtube-VIS/  --num-gpus 4 --config-file VIS/FFS_regnet.yaml  --random-seed 0 --resume True  
 ``` 
 The trained model will be saved at ```/path/to/Flow-Feature-Synthesis/detection/data/configs/VIS/FFS_regnet/random_seed_0/model_final.pth```
 
@@ -105,51 +90,26 @@ If you would like to directly use the pre-trained FFS models instead of training
 **Step 1:** First, the evaluation needs to be performed on the validation set of PASCAL-VOC as follows:
 
 ```
-python apply_net.py  
---dataset-dir /path/to/dataset/VOC/
---test-dataset voc_custom_val 
---config-file VOC-Detection/faster-rcnn/regnetx.yaml 
---inference-config Inference/standard_nms.yaml 
---random-seed 0 
---image-corruption-level 0 
---visualize 0
+python apply_net.py  --dataset-dir /path/to/dataset/VOC/ --test-dataset voc_custom_val --config-file VOC-Detection/faster-rcnn/regnetx.yaml --inference-config Inference/standard_nms.yaml --random-seed 0 --image-corruption-level 0 --visualize 0
 ```
 
 **Step 2:** Then, the evaluation needs to be performed on the validation set of outlier data. 
 
 For MS-COCO:
 ```
-python apply_net.py  
---dataset-dir /path/to/dataset/COCO/ 
---test-dataset coco_ood_val 
---config-file VOC-Detection/faster-rcnn/regnetx.yaml  
---inference-config Inference/standard_nms.yaml 
---random-seed 0 
---image-corruption-level 0 
---visualize 0
+python apply_net.py  --dataset-dir /path/to/dataset/COCO/ --test-dataset coco_ood_val --config-file VOC-Detection/faster-rcnn/regnetx.yaml  --inference-config Inference/standard_nms.yaml --random-seed 0 --image-corruption-level 0 --visualize 0
 ```
 
 For OpenImages:
 ```
-python apply_net.py  
---dataset-dir /path/to/dataset/OpenImages/  
---test-dataset openimages_ood_val 
---config-file VOC-Detection/faster-rcnn/regnetx.yaml  
---inference-config Inference/standard_nms.yaml 
---random-seed 0 
---image-corruption-level 0 
---visualize 0
+python apply_net.py  --dataset-dir /path/to/dataset/OpenImages/  --test-dataset openimages_ood_val --config-file VOC-Detection/faster-rcnn/regnetx.yaml  --inference-config Inference/standard_nms.yaml --random-seed 0 --image-corruption-level 0 --visualize 0
 ```
 
 **Step 3:** Finally, the outlier detection performance based on the evaluation metric such as FPR95 and AUROC can be computed as follows:
 
 For MS-COCO:
 ```
-python voc_coco_plot.py
---name regnetx 
---thres xxx 
---energy 1 
---seed 0
+python voc_coco_plot.py --name regnetx --thres xxx --energy 1 --seed 0
 ```
 
 **Note:** You can obtain the threshold value by looking at the name of the file ```probabilistic_scoring_res_odd_0.5959.txt``` at ```/path/to/Flow-Feature-Synthesis/detection/data/VOC-Detection/faster-rcnn/regnetx/random_seed_0/inference/voc_custom_val/standard_nms/corruption_level_0/probabilistic_scoring_res_odd_xxxx.txt```.
@@ -158,27 +118,42 @@ For our pre-trained model with PASCAL-VOC dataset, the threshold should be ```0.
 
 For OpenImages:
 ```
-python voc_openimage_plot.py
---name regnetx 
---thres xxx 
---energy 1 
---seed 0
+python voc_openimage_plot.py --name regnetx --thres xxx --energy 1 --seed 0
 ```
+
 
 **Evaluation with the FFS trained on BDD100K as the inlier video dataset**
 
 **Step 1:** First, the evaluation needs to be performed on the validation set of BDD100K (Videos) as follows:
 
 ```
-python apply_net.py  
---dataset-dir /path/to/dataset/BDD100k_video/bdd100k/
---test-dataset bdd_tracking_2k_val 
---config-file BDD100k/FFS_regnet.yaml 
---inference-config Inference/standard_nms.yaml 
---random-seed 0 
---image-corruption-level 0 
---visualize 0
+python apply_net.py  --dataset-dir /path/to/dataset/BDD100k_video/bdd100k/ --test-dataset bdd_tracking_2k_val --config-file BDD100k/FFS_regnet.yaml --inference-config Inference/standard_nms.yaml --random-seed 0 --image-corruption-level 0 --visualize 0
 ```
+
+**Step 2:** Then, the evaluation needs to be performed on the validation set of outlier data as follows:  
+
+For MS-COCO:
+```
+python apply_net.py  --dataset-dir /projects/p084/p_discoret/COCO/ --test-dataset coco_2017_val_ood_wrt_bdd  --config-file BDD100k/FFS_regnet.yaml  --inference-config Inference/standard_nms.yaml --random-seed 0 --image-corruption-level 0 --visualize 0
+```
+
+For nuImages:
+```
+python apply_net.py  --dataset-dir /projects/p084/p_discoret/nuImages/ --test-dataset nu_bdd_ood  --config-file BDD100k/FFS_regnet.yaml  --inference-config Inference/standard_nms.yaml --random-seed 0 --image-corruption-level 0 --visualize 0
+```
+
+
+**Step 3:** Now, compute the outlier detection performance. The threshold could be determined using the same procedure as mentioned before:
+
+For MS-COCO:
+```
+python bdd_coco_plot.py --name regnetx --thres xxx --energy 1 --seed 0
+```
+
+For nuImages:
+```
+python bdd_nuImage_plot.py --name regnetx --thres xxx --energy 1 --seed 0
+
 
 
 
@@ -187,15 +162,34 @@ python apply_net.py
 **Step 1:** First, the evaluation needs to be performed on the validation set of Youtube-VIS as follows:
 
 ```
-python apply_net.py 
---dataset-dir /projects/p084/p_discoret/Youtube-VIS  
---test-dataset vis21_val 
---config-file VIS/FFS_regnet.yaml 
---inference-config Inference/standard_nms.yaml 
---random-seed 0 
---image-corruption-level 0 
---visualize 0
+python apply_net.py --dataset-dir /projects/p084/p_discoret/Youtube-VIS  --test-dataset vis21_val --config-file VIS/FFS_regnet.yaml --inference-config Inference/standard_nms.yaml --random-seed 0 --image-corruption-level 0 --visualize 0
 ```
+
+**Step 2:** Then, the evaluation needs to be performed on the validation set of outlier data as follows:  
+
+For MS-COCO
+```
+python apply_net.py  --dataset-dir /projects/p084/p_discoret/COCO/ --test-dataset vis_coco_ood  --config-file VIS/FFS_regnet.yaml  --inference-config Inference/standard_nms.yaml --random-seed 0 --image-corruption-level 0 --visualize 0
+```
+
+
+For nuImages
+```
+python apply_net.py  --dataset-dir /projects/p084/p_discoret/nuImages/ --test-dataset nu_bdd_ood--config-file VIS/FFS_regnet.yaml  --inference-config Inference/standard_nms.yaml --random-seed 0 --image-corruption-level 0 --visualize 0
+```
+
+
+**Step 3:** Now, compute the outlier detection performance. The threshold could be determined using the same procedure as mentioned before:
+
+For MS-COCO:
+```
+python vis_coco_plot.py --name regnetx --thres xxx --energy 1 --seed 0
+```
+
+For nuImages:
+```
+python vis_nuImage_plot.py --name regnetx --thres xxx --energy 1 --seed 0
+
 
 
 

@@ -31,9 +31,9 @@ to_np = lambda x: x.data.cpu().numpy()
 
 
 # ID data
-id_data = pickle.load(open('./data/VOC-Detection/' + args.model + '/'+args.name+'/random_seed'+'_' +str(args.seed)  +'/inference/voc_custom_val/standard_nms/corruption_level_0/probabilistic_scoring_res_odd_'+str(args.thres)+'.pkl', 'rb'))
-ood_data = pickle.load(open('./data/VOC-Detection/' + args.model + '/'+args.name+'/random_seed' +'_'+str(args.seed)  +'/inference/coco_ood_val/standard_nms/corruption_level_0/probabilistic_scoring_res_odd_'+str(args.thres)+'.pkl', 'rb'))    
-    
+id_data = pickle.load(open('./data/configs/VIS/FFS_regnet/random_seed' + '_' + str(args.seed)  +'/inference/vis21_val/standard_nms/corruption_level_0/probabilistic_scoring_res_odd_'+str(args.thres)+'.pkl', 'rb'))
+ood_data = pickle.load(open('./data/configs/VIS/FFS_regnet/random_seed' +'_' + str(args.seed)  +'/inference/vis_coco_ood/standard_nms/corruption_level_0/probabilistic_scoring_res_odd_'+str(args.thres)+'.pkl', 'rb'))
+
 id = 0
 T = 1
 id_score = []
@@ -41,12 +41,12 @@ ood_score = []
 
 
 
-assert len(id_data['inter_feat'][0]) == 21# + 1024
+#assert len(id_data['inter_feat'][0]) == 21# + 1024
 if args.energy:
     #id_score = -torch.stack(id_data['logistic_score'])
     #ood_score = -torch.stack(ood_data['logistic_score'])
     id_score = -args.T * torch.logsumexp(torch.stack(id_data['inter_feat'])[:, :-1] / args.T, dim=1).cpu().data.numpy()
-    ood_score = -args.T *torch.logsumexp(torch.stack(ood_data['inter_feat'])[:, :-1] / args.T, dim=1).cpu().data.numpy()
+    ood_score = -args.T * torch.logsumexp(torch.stack(ood_data['inter_feat'])[:, :-1] / args.T, dim=1).cpu().data.numpy()
 else:
     id_score = -np.max(F.softmax(torch.stack(id_data['inter_feat'])[:, :-1], dim=1).cpu().data.numpy(), axis=1)
     ood_score = -np.max(F.softmax(torch.stack(ood_data['inter_feat'])[:, :-1], dim=1).cpu().data.numpy(), axis=1)

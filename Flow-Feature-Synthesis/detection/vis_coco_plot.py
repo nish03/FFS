@@ -31,8 +31,8 @@ to_np = lambda x: x.data.cpu().numpy()
 
 
 # ID data
-id_data = pickle.load(open('./data/configs/VIS/stud_regnet/random_seed' + '_' + str(args.seed)  +'/inference/vis21_val/standard_nms/corruption_level_0/probabilistic_scoring_res_odd_'+str(args.thres)+'.pkl', 'rb'))
-ood_data = pickle.load(open('./data/configs/VIS/stud_regnet/random_seed' +'_' + str(args.seed)  +'/inference/vis_coco_ood/standard_nms/corruption_level_0/probabilistic_scoring_res_odd_'+str(args.thres)+'.pkl', 'rb'))
+id_data = pickle.load(open('./data/configs/VIS/FFS_regnet/random_seed' + '_' + str(args.seed)  +'/inference/vis21_val/standard_nms/corruption_level_0/probabilistic_scoring_res_odd_'+str(args.thres)+'.pkl', 'rb'))
+ood_data = pickle.load(open('./data/configs/VIS/FFS_regnet/random_seed' +'_' + str(args.seed)  +'/inference/vis_coco_ood/standard_nms/corruption_level_0/probabilistic_scoring_res_odd_'+str(args.thres)+'.pkl', 'rb'))
 
 id = 0
 T = 1
