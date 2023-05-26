@@ -4,7 +4,7 @@ This repository provides the source code for the CVPR 2023 highlight [paper](htt
 * Generates synthetic outlier features in the inverse direction after random sampling from the latent space of the Flow model. 
 * Regularizes the object detection framework to make it outlier-aware via discriminative training procedure that separates the energy surface of the synthesized outliers and inlier features. 
 * Performs outlier-aware object detection on both image and video based datasets. 
-# Method Diagram
+# Method Figure
 ![GitHub Logo](/Flow-Feature-Synthesis/assets/Method.jpg)
 
 # Content
