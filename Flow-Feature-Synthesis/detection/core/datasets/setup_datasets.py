@@ -328,14 +328,14 @@ def register_vis_dataset():
     register_coco_instances(
             'vis21_val',
             metadata,
-            '/projects/p084/p_discoret/Youtube-VIS/train/instances_val.json',
-            "/projects/p084/p_discoret/Youtube-VIS/train/JPEGImages/",
+            '/path/to/dataset/Youtube-VIS/train/instances_val.json',
+            "/path/to/dataset/Youtube-VIS/train/JPEGImages/",
     )
     register_coco_instances(
             'vis21_train',
             metadata,
-            '/projects/p084/p_discoret/Youtube-VIS/train/instances_train.json',
-            "/projects/p084/p_discoret/Youtube-VIS/train/JPEGImages/",
+            '/path/to/dataset/Youtube-VIS/train/instances_train.json',
+            "/path/to/dataset/Youtube-VIS/train/JPEGImages/",
     )  
     MetadataCatalog.get(
         "vis21_train").thing_dataset_id_to_contiguous_id = VIS_THING_DATASET_ID_TO_CONTIGUOUS_ID
@@ -349,12 +349,12 @@ def register_all_bdd_tracking(dataset_dir):
     _PREDEFINED_SPLITS_BDDT = {
         "bdd_tracking_2k": {
             "bdd_tracking_2k_train": (
-                "/projects/p084/p_discoret/BDD100k_video/bdd100k/images/track/train",
-                "/projects/p084/p_discoret/BDD100k_video/bdd100k/labels/track/bdd100k_det_train_coco.json",
+                "/path/to/dataset/BDD100k_video/bdd100k/images/track/train",
+                "/path/to/dataset/BDD100k_video/bdd100k/labels/track/bdd100k_det_train_coco.json",
             ),
             "bdd_tracking_2k_val": (
-                "/projects/p084/p_discoret/BDD100k_video/bdd100k/images/track/val",
-                "/projects/p084/p_discoret/BDD100k_video/bdd100k/labels/track/bdd100k_det_val_coco.json",
+                "/path/to/dataset/BDD100k_video/bdd100k/images/track/val",
+                "/path/to/dataset/BDD100k_video/bdd100k/labels/track/bdd100k_det_val_coco.json",
             ),
         },
     }
@@ -394,10 +394,10 @@ def register_all_bdd_tracking(dataset_dir):
     register_coco_instances(
         'nu_bdd_ood',
         metadata,
-        '/projects/p084/p_discoret/nuImages/nu_ood.json',
-        "/projects/p084/p_discoret/nuImages/",
+        '/path/to/dataset/nuImages/nu_ood.json',
+        "/path/to/dataset/nuImages/",
     )
-    coco_api = COCO('/projects/p084/p_discoret/nuImages/nu_ood.json')
+    coco_api = COCO('/path/to/dataset/nuImages/nu_ood.json')
     cat_ids = sorted(coco_api.getCatIds())
     id_map = {v: i for i, v in enumerate(cat_ids)}
     MetadataCatalog.get("nu_bdd_ood").thing_dataset_id_to_contiguous_id = id_map
@@ -423,10 +423,10 @@ def register_all_bdd_tracking(dataset_dir):
     register_coco_instances(
         'vis_coco_ood',
         metadata,
-        '/projects/p084/p_discoret/COCO/annotations/instances_val2017_ood_wrt_vis.json',
-        "/projects/p084/p_discoret/COCO/train2017/",
+        '/path/to/dataset/COCO/annotations/instances_val2017_ood_wrt_vis.json',
+        "/path/to/dataset/COCO/train2017/",
     )    
-    coco_api = COCO('/projects/p084/p_discoret/COCO/annotations/instances_val2017_ood_wrt_vis.json')
+    coco_api = COCO('/path/to/dataset/COCO/annotations/instances_val2017_ood_wrt_vis.json')
     cat_ids = sorted(coco_api.getCatIds())
     id_map = {v: i for i, v in enumerate(cat_ids)}
     MetadataCatalog.get("vis_coco_ood").thing_dataset_id_to_contiguous_id = id_map
@@ -465,7 +465,7 @@ def register_coco_ood_wrt_bdd(dataset_dir):
     register_coco_instances('coco_2017_val_ood_wrt_bdd', metadata,
                                 test_json_annotations,
                                   test_image_dir)
-    #coco_api = COCO('/projects/p084/p_discoret/COCO/annotations/instances_val2017_ood_wrt_bdd.json')
+    #coco_api = COCO('/path/to/dataset/COCO/annotations/instances_val2017_ood_wrt_bdd.json')
     #cat_ids = sorted(coco_api.getCatIds())
     #id_map = {v: i for i, v in enumerate(cat_ids)}
     MetadataCatalog.get("coco_2017_val_ood_wrt_bdd").thing_dataset_id_to_contiguous_id = MetadataCatalog.get(

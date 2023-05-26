@@ -49,7 +49,7 @@ Please follow the repositories of the [VOS](https://github.com/deeplearning-wisc
 ```
 cd /path/to/Flow-Feature-Synthesis/detection 
 ```
-**Step 2:** You could download the pre-trained RegNetX-4.0GF backbone from [here](https://drive.google.com/file/d/1WyE_OIpzV_0E_Y3KF4UVxIZJTSqB7cPO/view?usp=sharing) and place it in ```/path/to/Flow-Feature-Synthesis/detection/configs/regnetx_detectron2.pth```. You could already find this file at the given location in this repository. 
+**Step 2:** You need to download the pre-trained RegNetX-4.0GF backbone from [here](https://drive.google.com/file/d/1WyE_OIpzV_0E_Y3KF4UVxIZJTSqB7cPO/view?usp=sharing) and place it in ```/path/to/Flow-Feature-Synthesis/detection/configs/regnetx_detectron2.pth```.
 
 
 **Step 3:** You need to change the folder path where the dataset is placed in each of the below commands before you start the training process. 

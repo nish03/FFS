@@ -564,11 +564,9 @@ class ROIHeadsLogisticGMMNew(ROIHeads):
         self.batch_size = self.cfg.FFS.BATCH_SIZE
         self.sample_from = self.cfg.FFS.SAMPLE_FROM
         self.start_iter = self.cfg.FFS.STARTING_ITER
-        # print(self.sample_number, self.start_iter)
 
         self.logistic_regression = torch.nn.Linear(1, 2)
         self.logistic_regression.cuda()
-        # torch.nn.init.xavier_normal_(self.logistic_regression.weight)
 
         #Stack all the coupling blocks including the permute blocks 
         self.in1 = InputNode(1024, name='input1')
@@ -576,24 +574,14 @@ class ROIHeadsLogisticGMMNew(ROIHeads):
         self.layer2 = Node(self.layer1, PermuteRandom, {'seed': 0}, name=F'permute_{0}')
         self.layer3 = Node(self.layer2, GLOWCouplingBlock, {'subnet_constructor': self.subnet_fc, 'clamp': 2.0}, name=F'coupling_{1}')
         self.layer4 = Node(self.layer3, PermuteRandom, {'seed': 1}, name=F'permute_{1}')
-        #self.layer5 = Node(self.layer4, GLOWCouplingBlock, {'subnet_constructor': subnet_conv, 'clamp': 2.0}, name=F'coupling_{2}')
-        #self.layer6 = Node(self.layer5, PermuteRandom, {'seed': 2}, name=F'permute_{2}')
         self.out1 = OutputNode(self.layer4, name='output1')
-        #flow_model = GraphINN([in1, layer1, layer2, layer3, layer4, layer5, layer6, out1])
         self.flow_model = GraphINN([self.in1, self.layer1, self.layer2, self.layer3, self.layer4, self.out1])
-        
-        # self.inn = Ff.SequenceINN(20480)
-        # for k in range(2):
-            # self.inn.append(Fm.AllInOneBlock, subnet_constructor=self.subnet_fc, permute_soft=True)
         
         
         self.select = 1
-        #self.sample_from = 10000
         self.loss_weight = 0.1
         self.weight_energy = torch.nn.Linear(self.num_classes, 1).cuda()
         torch.nn.init.uniform_(self.weight_energy.weight)
-        #self.data_dict = torch.zeros(self.num_classes, self.sample_number, 1024).cuda()
-        #print("data dict has shape:", self.data_dict.shape)
         self.number_dict = {}
         self.eye_matrix = torch.eye(1024, device='cuda')
         self.trajectory = torch.zeros((self.num_classes, 900, 3)).cuda()
@@ -921,10 +909,9 @@ class ROIHeadsLogisticGMMNew(ROIHeads):
                     nll_loss = self.NLLLoss(z, sldj)
                     #randomly sample from latent space of flow model
                     with torch.no_grad():
-                        #z_randn = torch.randn((self.sample_from, self.num_classes, 1024), dtype=torch.float32).cuda()
                         z_randn = torch.randn((self.sample_from, 1024), dtype=torch.float32).cuda()
                         negative_samples, _ = self.flow_model(z_randn, rev=True)
-                        negative_samples = torch.sigmoid(negative_samples)
+                        #negative_samples = torch.sigmoid(negative_samples)
                         _, sldj_neg = self.flow_model(negative_samples)
                         nll_neg = self.NLL(z_randn, sldj_neg)
                         cur_samples, index_prob = torch.topk(nll_neg, self.select)
@@ -936,11 +923,9 @@ class ROIHeadsLogisticGMMNew(ROIHeads):
                     if len(ood_samples) != 0:
                         # add some gaussian noise
                         # ood_samples = self.noise(ood_samples)
-                        # energy_score_for_fg = 1 * torch.logsumexp(predictions[0][selected_fg_samples][:, :-1] / 1, 1)
-                        energy_score_for_fg = 0.01 * self.log_sum_exp(predictions[0][selected_fg_samples][:, :-1] / 0.01, 1)  #  in case of Youtube VIS; T =1 for both in and out, PASCAL-VOC: T = 1 for in  and T = 40 for out
+                        energy_score_for_fg = 1 * self.log_sum_exp(predictions[0][selected_fg_samples][:, :-1] / 1, 1)  
                         predictions_ood = self.box_predictor(ood_samples)
-                        # # energy_score_for_bg = 1 * torch.logsumexp(predictions_ood[0][:, :-1] / 1, 1)
-                        energy_score_for_bg = 0.01 * self.log_sum_exp(predictions_ood[0][:, :-1] / 0.01, 1)
+                        energy_score_for_bg = 1 * self.log_sum_exp(predictions_ood[0][:, :-1] / 1, 1)
 
                         input_for_lr = torch.cat((energy_score_for_fg, energy_score_for_bg), -1)
                         labels_for_lr = torch.cat((torch.ones(len(selected_fg_samples)).cuda(),
@@ -958,7 +943,7 @@ class ROIHeadsLogisticGMMNew(ROIHeads):
                         else:
                             weights_fg_bg = torch.Tensor([len(selected_fg_samples) / float(len(input_for_lr)),
                                                          len(ood_samples) / float(len(input_for_lr))]).cuda()
-                            criterion = torch.nn.CrossEntropyLoss()#weight=weights_fg_bg)
+                            criterion = torch.nn.CrossEntropyLoss()
                             output = self.logistic_regression(input_for_lr.view(-1, 1))
                             lr_reg_loss = criterion(output, labels_for_lr.long())
 

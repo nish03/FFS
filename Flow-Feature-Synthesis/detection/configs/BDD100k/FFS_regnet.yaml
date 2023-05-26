@@ -1,10 +1,10 @@
-_BASE_: "/home/h1/s8993054/Flow-Feature-Synthesis/detection/configs/Base-RCNN-FPN.yaml"
+_BASE_: "/path/to/Flow-Feature-Synthesis/detection/configs/Base-RCNN-FPN.yaml"
 MODEL:
   PIXEL_STD: [ 57.375, 57.120, 58.395 ]
   BACKBONE:
     NAME: "build_regnetx_fpn_backbone"
   META_ARCHITECTURE: "GeneralizedRCNNLogisticGMM"
-  WEIGHTS: "/home/h1/s8993054/Flow-Feature-Synthesis/detection/configs/regnetx_detectron2.pth" #"regnetx_detectron2.pth"
+  WEIGHTS: "/path/to/Flow-Feature-Synthesis/detection/configs/regnetx_detectron2.pth" #"regnetx_detectron2.pth"
   MASK_ON: False
   RESNETS:
     DEPTH: 50
