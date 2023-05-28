@@ -213,6 +213,8 @@ To visualize the performance of FFS on the outlier datasets, you need to perform
 **Step 5:** Finally run the evaluation script for the outlier dataset with ```--visualize 1```. 
 
 
+# LICENSE
+This Software is licensed under the MIT license. 
 
 
 
