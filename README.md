@@ -7,7 +7,7 @@ This repository provides the source code for the [CVPR 2023 highlight paper](htt
 * Learns inlier features using invertible Normalizing Flow model within the object detection framework. 
 * Generates synthetic outlier features in the inverse direction after random sampling from the latent space of the Flow model. 
 * Regularizes the object detection framework to make it outlier-aware via discriminative training procedure that separates the energy surface of the synthesized outliers and inlier features. 
-* Performs outlier-aware object detection on both image and video based datasets. Check out the [poster](/Flow-Feature-Synthesis/assets/FFS_poster.pdf).
+* Performs outlier-aware object detection on both image and video based datasets. Check out the [conference poster](/Flow-Feature-Synthesis/assets/FFS_poster.pdf).
 
 # Video
 [![Watch the video here](/Flow-Feature-Synthesis/assets/FFS_video_slides.png)](https://youtu.be/2LASy-H26lI)
