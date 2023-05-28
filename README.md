@@ -214,7 +214,7 @@ To visualize the performance of FFS on the outlier datasets, you need to perform
 
 
 # License
-This Software is licensed under the MIT license. 
+This software is licensed under the MIT license. 
 
 
 
