@@ -13,7 +13,7 @@ This repository provides the source code for the [CVPR 2023 highlight paper](htt
 [![Watch the video here](/Flow-Feature-Synthesis/assets/FFS_video_slides.png)](https://youtu.be/2LASy-H26lI)
 
 # Content
-* [How to Cite](#citation)
+* [How to Cite](#how-to-cite)
 * [Installation](#Installation)
   * [Package Requirements](#package-requirements)
   * [Datasets](#Datasets)
