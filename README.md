@@ -46,7 +46,7 @@ Additionally, you need to install [Detectron2](https://detectron2.readthedocs.io
 ### Datasets
 Please follow the repositories of the [VOS](https://github.com/deeplearning-wisc/vos) and [STUD](https://github.com/deeplearning-wisc/stud) papers to obtain and prepare both publicly available inlier datasets as well as the pre-processed outlier datasets.
 
-**Note:** After you have prepared the datasets and placed in your dataset directory, you need to specify the correct dataset folder path in the ```/path/to/Flow-Feature-Synthesis/detection/core/datasets/setup_datasets.py``` by changing the ```/path/to/``` to the correct path. 
+**Note:** After you have prepared the datasets and placed in your dataset directory, you need to specify the correct dataset folder path in the ```/path/to/Flow-Feature-Synthesis/detection/core/datasets/setup_datasets.py``` by changing the ```/path/to/``` to the correct path wherever required. 
 
 
 # Training FFS from scratch
