@@ -15,8 +15,8 @@ This repository provides the source code for the [CVPR 2023 highlight paper](htt
 # Content
 * [How to Cite](#how-to-cite)
 * [Installation](#installation)
-  * [Package Requirements](###package-requirements)
-  * [Datasets](###datasets)
+  * [Package Requirements](#package-requirements)
+  * [Datasets](#datasets)
 * [Training FFS from scratch](#training-ffs-from-scratch)
 * [Using Pre-trained FFS Models](#using-pre-trained-ffs-models)
 * [Inference procedure](#inference-procedure)
