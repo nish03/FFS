@@ -209,7 +209,7 @@ To visualize the performance of FFS on the outlier datasets, you need to perform
 
 **Step 3:** Change the right hand side of the line 131 in ```inference_core.py``` to the number of inlier classes (e.g. for PASCAL-VOC, it should be 20 since there are 20 inlier classes in this dataset)
 
-**Step 4:** Change the threshold in line 97 of ```apply_net.py``` to the value obtained in b). 
+**Step 4:** Change the threshold in line 97 of ```apply_net.py``` to the value obtained in Step 2.
 
 **Step 5:** Finally run the evaluation script for the outlier dataset with ```--visualize 1```. 
 
