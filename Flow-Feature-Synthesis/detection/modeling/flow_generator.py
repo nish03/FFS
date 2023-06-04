@@ -49,30 +49,6 @@ The call is expected to return an :class:`ROIHeads`.
 
 logger = logging.getLogger(__name__)
 
-        
-# #create flow model    
-# def subnet_conv(c_in, c_out):
-    # return nn.Sequential(nn.Conv1d(c_in, 2048, 3, padding=1), nn.ReLU(), nn.Conv1d(2048, c_out, 3, padding=1)).cuda()     
-
-
-# # Stack all the coupling blocks including the permute blocks 
-# in1 = InputNode(20, 1024, name='input1')
-# layer1 = Node(in1, GLOWCouplingBlock, {'subnet_constructor': subnet_conv, 'clamp': 2.0}, name=F'coupling_{0}')
-# layer2 = Node(layer1, PermuteRandom, {'seed': 0}, name=F'permute_{0}')
-# layer3 = Node(layer2, GLOWCouplingBlock, {'subnet_constructor': subnet_conv, 'clamp': 2.0}, name=F'coupling_{1}')
-# layer4 = Node(layer3, PermuteRandom, {'seed': 1}, name=F'permute_{1}')
-# #layer5 = Node(layer4, GLOWCouplingBlock, {'subnet_constructor': subnet_conv, 'clamp': 2.0}, name=F'coupling_{2}')
-# #layer6 = Node(layer5, PermuteRandom, {'seed': 2}, name=F'permute_{2}')
-# out1 = OutputNode(layer4, name='output1')
-# #flow_model = GraphINN([in1, layer1, layer2, layer3, layer4, layer5, layer6, out1])
-# flow_model = GraphINN([in1, layer1, layer2, layer3, layer4, out1])
-
-
-# flow_model = torch.nn.parallel.DistributedDataParallel(flow_model, device_ids=[comm.get_local_rank()], broadcast_buffers=False,)
-# cudnn.benchmark = True  # fire on all cylinders
-# loss_fn = NLLLoss().cuda()
-# NLL = NLL().cuda()
-
 def build_roi_heads(cfg, input_shape):
     """
     Build ROIHeads defined by `cfg.MODEL.ROI_HEADS.NAME`.
