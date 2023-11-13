@@ -78,6 +78,8 @@ python train_net_gmm.py  --dataset-dir /path/to/dataset/Youtube-VIS/  --num-gpus
 ``` 
 The trained model will be saved at ```/path/to/Flow-Feature-Synthesis/detection/data/configs/VIS/FFS_regnet/random_seed_0/model_final.pth```
 
+# [Optional] Training FFS with SGLD
+You can also train our FFS model with the Stochastic Gradient based Langevin Dynamics approach as proposed in the paper. All you need to do is change the line 18 in ```/path/to/Flow-Feature-Synthesis/detection/modeling/plain_generalized_rcnn_logistic_gmm.py``` from ```from modeling.flow_generator import build_roi_heads``` to ```from modeling.flow_generator_sgld import build_roi_heads```. 
 
 # Using Pre-trained FFS Models
 If you would like to directly use the pre-trained FFS models instead of training a new instance of the FFS, please follow the below steps:
