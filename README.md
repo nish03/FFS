@@ -1,7 +1,7 @@
 # FFS: Normalizing Flow based Feature Synthesis for Outlier-Aware Object Detection
 This repository provides the source code for the [CVPR 2023 highlight paper](https://arxiv.org/abs/2302.07106) titled **Normalizing Flow based Feature Synthesis for Outlier-Aware Object Detection** by [Nishant Kumar](https://tu-dresden.de/ing/informatik/smt/cgv/die-professur/mitarbeiter/nishant-kumar), [Siniša Šegvić](http://www.zemris.fer.hr/~ssegvic/), [Abouzar Eslami](https://scholar.google.de/citations?user=PmHOyT0AAAAJ&hl=en) and [Stefan Gumhold](https://tu-dresden.de/ing/informatik/smt/cgv/die-professur/inhaber-in). 
 
-![GitHub Logo](/Flow-Feature-Synthesis/assets/Method.jpg)
+![GitHub Logo](/Flow-Feature-Synthesis/assets/Method.png)
 
 **The key contributions of the paper are as follows:**
 * Learns inlier features using invertible Normalizing Flow model within the object detection framework. 
