@@ -154,7 +154,7 @@ class GeneralizedRcnnPlainPredictor(ProbabilisticPredictor):
         det_labels = det_labels.view(1, -1).expand_as(scores)
 
         scores = scores[filter_mask]
-        det_labels = det_labels[filter_mask]
+        det_labels = det_labels[filter_mask.to(det_labels.device)]
 
         inter_feat = inter_feat[filter_inds[:, 0]]
         proposal_boxes = proposals.proposal_boxes.tensor[filter_inds[:, 0]]

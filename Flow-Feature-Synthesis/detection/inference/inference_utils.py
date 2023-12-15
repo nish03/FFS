@@ -81,7 +81,7 @@ def general_standard_nms_postprocessing(input_im,
     result.pred_classes = classes_idxs[keep]
     result.pred_cls_probs = predicted_prob_vectors[keep]
     result.inter_feat = inter_feat[keep]
-    result.det_labels = det_labels[keep]
+    result.det_labels = det_labels[keep.to(det_labels.device)]
     if logistic_score is not None:
         result.logistic_score = logistic_score[keep]
 
@@ -460,7 +460,7 @@ def probabilistic_detector_postprocess(
     # Scale bounding boxes
     output_boxes.scale(scale_x, scale_y)
     output_boxes.clip(results.image_size)
-    results = results[output_boxes.nonempty()]
+    results = results[output_boxes.nonempty().to(results.pred_boxes.tensor.device).cpu()]
 
     # Scale covariance matrices
     if results.has("pred_boxes_covariance"):
