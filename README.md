@@ -12,6 +12,9 @@ This repository provides the source code for the [CVPR 2023 highlight paper](htt
 # Video
 [![Watch the video here](/Flow-Feature-Synthesis/assets/FFS_video_slides.png)](https://youtu.be/2LASy-H26lI)
 
+# Advertisement
+* Check out our AAAI 2024 work [QuantOD](https://github.com/taghikhah/QuantOD) on Outlier-aware Image Classification.
+  
 # Content
 * [How to Cite](#how-to-cite)
 * [Installation](#installation)
